@@ -1,53 +1,164 @@
 # AWS Resources CLI Tool
 
-A comprehensive command-line interface for creating various AWS resources including S3 buckets, EC2 instances, DynamoDB tables, RDS instances, Lambda functions, and SNS topics.
+🚀 **Now powered by Go and aws-sdk-go-v2 with Bubble Tea TUI!**
+
+A modern Terminal User Interface (TUI) for creating and managing AWS resources. This project has been refactored from Python to Go with an interactive interface powered by Bubble Tea.
+
+![Main Menu](https://github.com/user-attachments/assets/8f724ca2-b911-4446-8f0a-986a881137d7)
+
+## 🔄 Migration Notice
+
+This project has been **migrated from Python (boto3) to Go (aws-sdk-go-v2)** with a modern **Bubble Tea TUI interface** to provide:
+- ⚡ Better performance and lower memory usage
+- 📦 Single binary deployment (no dependencies)
+- 🔧 Modern AWS SDK with the latest features
+- 🎨 Beautiful interactive Terminal User Interface
+- 🖱️ Intuitive navigation with keyboard controls
+
+**Legacy Python code is preserved** for reference, but the Go implementation with Bubble Tea TUI is now the primary version.
 
 ## Features
 
-This CLI tool provides two complementary interfaces for AWS resource management:
-
-### Modern Package-based CLI (S3 & EC2 - Production Ready)
-- **S3 Bucket Management**: Create S3 buckets with region specification
-- **EC2 Instance Management**: Launch EC2 instances with customizable configuration
-- **Package Installation**: Install as `pip install -e .` and use `aws-resources` command
-- **Advanced Error Handling**: Comprehensive AWS error handling and user-friendly messages
-- **Hierarchical Commands**: Professional CLI experience with argparse subcommands
-
-### Extended Service Support (All AWS Services)
-- **DynamoDB Tables**: Create DynamoDB tables with partition keys and optional sort keys
-- **RDS Instances**: Create RDS database instances with various engines
-- **Lambda Functions**: Create Lambda functions with different runtimes
-- **SNS Topics**: Create SNS topics for messaging
-- **Direct Python Execution**: Use `python aws_cli.py` for broader service access
+- 🎨 **Interactive TUI**: Beautiful terminal interface with keyboard navigation
+- 🪣 **S3 Bucket Management**: Create S3 buckets with region specification
+- 💻 **EC2 Instance Management**: Launch EC2 instances with customizable configuration
+- 🚀 **Modern Go Implementation**: Built with aws-sdk-go-v2 for optimal performance
+- 🛠️ **Comprehensive Error Handling**: User-friendly AWS error messages
+- ⌨️ **Keyboard Navigation**: Arrow keys, Enter, Tab, and Esc for full control
 
 ## Prerequisites
 
-- Python 3.8 or higher
+- Go 1.21 or higher
 - AWS credentials configured (via AWS CLI, environment variables, or IAM roles)
-- Required Python packages (see requirements.txt)
 
 ## Installation
 
-1. Clone this repository:
+### Quick Start
+
+1. Clone and build:
 ```bash
-git clone https://github.com/nataliagranato/aws-resources.git
+git clone https://github.com/Tech-Preta/aws-resources.git
 cd aws-resources
+make build
 ```
 
-2. Install dependencies:
+2. Configure AWS credentials:
 ```bash
-pip install -r requirements.txt
+aws configure
+# OR set environment variables:
+# export AWS_ACCESS_KEY_ID=your_access_key
+# export AWS_SECRET_ACCESS_KEY=your_secret_key
 ```
 
-3. Install the package for modern CLI experience:
+3. Run the interactive TUI:
 ```bash
-pip install -e .
+./bin/aws-resources
 ```
 
-4. Configure AWS credentials (choose one method):
-   - Using AWS CLI: `aws configure`
-   - Using environment variables: `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`
-   - Using IAM roles (if running on EC2)
+## Usage
+
+### Interactive TUI Navigation
+
+The application provides a beautiful terminal user interface with the following controls:
+
+- **↑/↓ or k/j**: Navigate menu options
+- **Enter**: Select option or confirm action
+- **Tab**: Switch between form fields
+- **Esc**: Go back to previous screen
+- **q**: Quit application
+
+### S3 Operations
+
+1. Select "S3 - Manage Buckets" from the main menu
+2. Choose "Create Bucket"
+3. Fill in:
+   - Bucket Name: Enter your desired bucket name
+   - Region: Specify AWS region (default: us-east-1)
+4. Select "Create Bucket" to proceed
+
+### EC2 Operations
+
+1. Select "EC2 - Manage Instances" from the main menu
+2. Choose "Create Instances"
+3. Fill in:
+   - Image ID (AMI): AMI ID to launch (e.g., ami-0abcdef1234567890)
+   - Instance Type: EC2 instance type (e.g., t2.micro, t3.small)
+   - Key Name: Name of your EC2 Key Pair for SSH access
+   - Count: Number of instances to launch (default: 1)
+   - Region: AWS region (default: us-east-1)
+4. Select "Launch Instances" to proceed
+
+## Development
+
+### Build Commands
+
+```bash
+make build          # Build the application
+make test           # Run tests
+make clean          # Clean build artifacts
+make check          # Run format, vet, and test
+make help           # Show all available commands
+```
+
+## Migration from Command-Line Version
+
+The new Bubble Tea TUI provides a more intuitive alternative to command-line arguments:
+
+### Before (Command-line):
+```bash
+./bin/aws-resources s3 create-bucket --bucket-name mybucket --region us-east-1
+./bin/aws-resources ec2 create-instances --image-id ami-123 --instance-type t2.micro --key-name mykey --region us-west-2
+```
+
+### After (Interactive TUI):
+```bash
+./bin/aws-resources
+# Then navigate through the beautiful menu system
+```
+
+## Architecture
+
+```
+├── cmd/aws-resources/     # Main application entry point
+├── pkg/
+│   ├── cli/              # Bubble Tea TUI interface
+│   └── services/         # AWS service implementations
+├── Makefile              # Build and development commands
+├── go.mod               # Go module definition
+└── go.sum              # Go module checksums
+```
+
+## Technology Stack
+
+- **Go 1.21+**: Modern, fast, and efficient programming language
+- **aws-sdk-go-v2**: Latest AWS SDK for Go with best practices
+- **Bubble Tea**: Powerful TUI framework for beautiful terminal interfaces
+- **Lipgloss**: Styling library for elegant terminal output
+
+## Legacy Python Implementation
+
+The original Python implementation is preserved in this repository:
+- `aws_cli/` - Original Python CLI implementation
+- `aws_ui/` - Flask web interface (deprecated)
+- `tests/` - Python unit tests
+
+These files are kept for reference but are no longer actively maintained.
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the GNU General Public License v3.0. See the [LICENSE](LICENSE) file for details.
+
+---
+
+Feito com ❤️ por [Natália Granato](https://github.com/nataliagranato).
 
 ## Usage
 
