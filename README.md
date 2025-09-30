@@ -1,26 +1,30 @@
 # AWS Resources CLI Tool
 
-🚀 **Now powered by Go and aws-sdk-go-v2!**
+🚀 **Now powered by Go and aws-sdk-go-v2 with Bubble Tea TUI!**
 
-A command-line interface for creating and managing AWS resources. This project has been refactored from Python to Go for better performance, easier deployment, and modern AWS SDK support.
+A modern Terminal User Interface (TUI) for creating and managing AWS resources. This project has been refactored from Python to Go with an interactive interface powered by Bubble Tea.
+
+![Main Menu](https://github.com/user-attachments/assets/8f724ca2-b911-4446-8f0a-986a881137d7)
 
 ## 🔄 Migration Notice
 
-This project has been **migrated from Python (boto3) to Go (aws-sdk-go-v2)** to provide:
+This project has been **migrated from Python (boto3) to Go (aws-sdk-go-v2)** with a modern **Bubble Tea TUI interface** to provide:
 - ⚡ Better performance and lower memory usage
 - 📦 Single binary deployment (no dependencies)
 - 🔧 Modern AWS SDK with the latest features
-- 🛠️ Professional CLI experience with Cobra
+- 🎨 Beautiful interactive Terminal User Interface
+- 🖱️ Intuitive navigation with keyboard controls
 
-**Legacy Python code is preserved** for reference, but the Go implementation is now the primary version.
+**Legacy Python code is preserved** for reference, but the Go implementation with Bubble Tea TUI is now the primary version.
 
 ## Features
 
-- **S3 Bucket Management**: Create S3 buckets with region specification
-- **EC2 Instance Management**: Launch EC2 instances with customizable configuration
-- **Modern Go Implementation**: Built with aws-sdk-go-v2 for optimal performance
-- **Comprehensive Error Handling**: User-friendly AWS error messages
-- **Professional CLI**: Built with Cobra for excellent user experience
+- 🎨 **Interactive TUI**: Beautiful terminal interface with keyboard navigation
+- 🪣 **S3 Bucket Management**: Create S3 buckets with region specification
+- 💻 **EC2 Instance Management**: Launch EC2 instances with customizable configuration
+- 🚀 **Modern Go Implementation**: Built with aws-sdk-go-v2 for optimal performance
+- 🛠️ **Comprehensive Error Handling**: User-friendly AWS error messages
+- ⌨️ **Keyboard Navigation**: Arrow keys, Enter, Tab, and Esc for full control
 
 ## Prerequisites
 
@@ -46,39 +50,43 @@ aws configure
 # export AWS_SECRET_ACCESS_KEY=your_secret_key
 ```
 
+3. Run the interactive TUI:
+```bash
+./bin/aws-resources
+```
+
 ## Usage
+
+### Interactive TUI Navigation
+
+The application provides a beautiful terminal user interface with the following controls:
+
+- **↑/↓ or k/j**: Navigate menu options
+- **Enter**: Select option or confirm action
+- **Tab**: Switch between form fields
+- **Esc**: Go back to previous screen
+- **q**: Quit application
 
 ### S3 Operations
 
-Create an S3 bucket:
-```bash
-./bin/aws-resources s3 create-bucket --bucket-name my-app-logs-2024 --region us-east-1
-```
+1. Select "S3 - Manage Buckets" from the main menu
+2. Choose "Create Bucket"
+3. Fill in:
+   - Bucket Name: Enter your desired bucket name
+   - Region: Specify AWS region (default: us-east-1)
+4. Select "Create Bucket" to proceed
 
 ### EC2 Operations
 
-Launch EC2 instances:
-```bash
-# Single instance
-./bin/aws-resources ec2 create-instances \
-  --image-id ami-0abcdef1234567890 \
-  --instance-type t2.micro \
-  --key-name my-keypair \
-  --region us-west-2
-
-# Multiple instances with verbose output
-./bin/aws-resources -v ec2 create-instances \
-  --image-id ami-0abcdef1234567890 \
-  --instance-type t3.small \
-  --key-name production-key \
-  --count 3 \
-  --region eu-west-1
-```
-
-### Global Options
-
-- `-v, --verbose`: Enable verbose output with full JSON responses
-- `-r, --region`: Specify AWS region globally
+1. Select "EC2 - Manage Instances" from the main menu
+2. Choose "Create Instances"
+3. Fill in:
+   - Image ID (AMI): AMI ID to launch (e.g., ami-0abcdef1234567890)
+   - Instance Type: EC2 instance type (e.g., t2.micro, t3.small)
+   - Key Name: Name of your EC2 Key Pair for SSH access
+   - Count: Number of instances to launch (default: 1)
+   - Region: AWS region (default: us-east-1)
+4. Select "Launch Instances" to proceed
 
 ## Development
 
@@ -92,35 +100,40 @@ make check          # Run format, vet, and test
 make help           # Show all available commands
 ```
 
-## Migration from Python Version
+## Migration from Command-Line Version
 
-If you were using the previous Python version:
+The new Bubble Tea TUI provides a more intuitive alternative to command-line arguments:
 
-### Command Equivalents
+### Before (Command-line):
+```bash
+./bin/aws-resources s3 create-bucket --bucket-name mybucket --region us-east-1
+./bin/aws-resources ec2 create-instances --image-id ami-123 --instance-type t2.micro --key-name mykey --region us-west-2
+```
 
-| Python Command | Go Command |
-|----------------|------------|
-| `aws-resources s3 create-bucket --bucket-name mybucket --region us-east-1` | `./bin/aws-resources s3 create-bucket --bucket-name mybucket --region us-east-1` |
-| `aws-resources ec2 create-instances --image-id ami-123 --instance-type t2.micro --key-name mykey --region us-west-2` | `./bin/aws-resources ec2 create-instances --image-id ami-123 --instance-type t2.micro --key-name mykey --region us-west-2` |
-
-### Key Differences
-
-1. **Single Binary**: No need for Python dependencies or virtual environments
-2. **Faster Startup**: Go binary starts instantly vs Python import time
-3. **Better Error Messages**: More detailed AWS error handling
-4. **Enhanced CLI**: Professional command structure with better help and validation
+### After (Interactive TUI):
+```bash
+./bin/aws-resources
+# Then navigate through the beautiful menu system
+```
 
 ## Architecture
 
 ```
 ├── cmd/aws-resources/     # Main application entry point
 ├── pkg/
-│   ├── cli/              # CLI commands and interface
+│   ├── cli/              # Bubble Tea TUI interface
 │   └── services/         # AWS service implementations
 ├── Makefile              # Build and development commands
 ├── go.mod               # Go module definition
 └── go.sum              # Go module checksums
 ```
+
+## Technology Stack
+
+- **Go 1.21+**: Modern, fast, and efficient programming language
+- **aws-sdk-go-v2**: Latest AWS SDK for Go with best practices
+- **Bubble Tea**: Powerful TUI framework for beautiful terminal interfaces
+- **Lipgloss**: Styling library for elegant terminal output
 
 ## Legacy Python Implementation
 
