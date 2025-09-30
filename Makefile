@@ -14,6 +14,10 @@ BINARY_PATH=bin/$(BINARY_NAME)
 build:
 	$(GOBUILD) -o $(BINARY_PATH) ./cmd/$(BINARY_NAME)
 
+# Build using script (with version info)
+build-script:
+	./scripts/build.sh
+
 # Run tests
 test:
 	$(GOTEST) -v ./...
@@ -40,6 +44,10 @@ dev:
 test-coverage:
 	$(GOTEST) -v -cover ./...
 
+# Run tests using script (with coverage report)
+test-script:
+	./scripts/test.sh
+
 # Format code
 fmt:
 	$(GOCMD) fmt ./...
@@ -50,6 +58,10 @@ vet:
 
 # Run all checks
 check: fmt vet test
+
+# Run linting using script
+lint-script:
+	./scripts/lint.sh
 
 # Show help
 help:
@@ -65,3 +77,8 @@ help:
 	@echo "  vet           - Vet code"
 	@echo "  check         - Run format, vet, and test"
 	@echo "  help          - Show this help"
+	@echo ""
+	@echo "Script-based commands:"
+	@echo "  build-script  - Build with version info using script"
+	@echo "  test-script   - Run tests with coverage report using script"
+	@echo "  lint-script   - Run linting using script"

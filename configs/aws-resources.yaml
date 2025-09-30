@@ -1,0 +1,38 @@
+# Exemplo de configuração para aws-resources
+# Este arquivo pode ser usado como modelo para configurações personalizadas
+
+# Configurações padrão do AWS
+aws:
+  region: "us-east-1"
+  profile: "default"
+
+# Configurações da interface TUI
+ui:
+  theme:
+    primary_color: "#FAFAFA"
+    accent_color: "#04B575"
+    error_color: "#FF0000"
+  
+  # Configurações de timeouts (em segundos)
+  timeout:
+    api_calls: 30
+    user_input: 300
+
+# Configurações de recursos padrão
+defaults:
+  s3:
+    region: "us-east-1"
+    versioning: false
+    encryption: true
+  
+  ec2:
+    region: "us-east-1"
+    instance_type: "t2.micro"
+    key_name: ""
+    security_groups: []
+
+# Configurações de logging
+logging:
+  level: "info"  # debug, info, warn, error
+  output: "stdout"  # stdout, stderr, file
+  file_path: "/var/log/aws-resources.log"

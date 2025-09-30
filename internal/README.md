@@ -1,0 +1,5 @@
+# /internal
+
+Código privado da aplicação e biblioteca. Este é o código que você não quer que outros importem em suas aplicações ou bibliotecas. Note que este padrão de layout é imposto pelo próprio compilador Go. Veja as [notas de lançamento Go 1.4](https://golang.org/doc/go1.4#internalpackages) para mais detalhes. Note que você não está limitado ao diretório `internal` de nível superior. Você pode ter mais de um diretório `internal` em qualquer nível da sua árvore de projeto.
+
+Você pode opcionalmente adicionar um pouco de estrutura extra aos seus pacotes internos para separar seu código interno compartilhado e não compartilhado. Não é obrigatório (especialmente para projetos menores), mas é bom ter pistas visuais mostrando o uso pretendido do pacote. Seu código de aplicação atual pode ir no diretório `/internal/app` (por exemplo, `/internal/app/myapp`) e o código compartilhado por essas aplicações no diretório `/internal/pkg` (por exemplo, `/internal/pkg/myprivatelib`).

@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  aws-resources:
+    build:
+      context: ../..
+      dockerfile: deployments/docker/Dockerfile
+    container_name: aws-resources
+    environment:
+      - AWS_REGION=${AWS_REGION:-us-east-1}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
+    volumes:
+      - ~/.aws:/root/.aws:ro
+    stdin_open: true  # Necessário para TUI
+    tty: true         # Necessário para TUI
+    networks:
+      - aws-resources-net
+
+networks:
+  aws-resources-net:
+    driver: bridge
