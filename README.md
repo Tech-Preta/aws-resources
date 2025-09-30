@@ -1,53 +1,151 @@
 # AWS Resources CLI Tool
 
-A comprehensive command-line interface for creating various AWS resources including S3 buckets, EC2 instances, DynamoDB tables, RDS instances, Lambda functions, and SNS topics.
+🚀 **Now powered by Go and aws-sdk-go-v2!**
+
+A command-line interface for creating and managing AWS resources. This project has been refactored from Python to Go for better performance, easier deployment, and modern AWS SDK support.
+
+## 🔄 Migration Notice
+
+This project has been **migrated from Python (boto3) to Go (aws-sdk-go-v2)** to provide:
+- ⚡ Better performance and lower memory usage
+- 📦 Single binary deployment (no dependencies)
+- 🔧 Modern AWS SDK with the latest features
+- 🛠️ Professional CLI experience with Cobra
+
+**Legacy Python code is preserved** for reference, but the Go implementation is now the primary version.
 
 ## Features
 
-This CLI tool provides two complementary interfaces for AWS resource management:
-
-### Modern Package-based CLI (S3 & EC2 - Production Ready)
 - **S3 Bucket Management**: Create S3 buckets with region specification
 - **EC2 Instance Management**: Launch EC2 instances with customizable configuration
-- **Package Installation**: Install as `pip install -e .` and use `aws-resources` command
-- **Advanced Error Handling**: Comprehensive AWS error handling and user-friendly messages
-- **Hierarchical Commands**: Professional CLI experience with argparse subcommands
-
-### Extended Service Support (All AWS Services)
-- **DynamoDB Tables**: Create DynamoDB tables with partition keys and optional sort keys
-- **RDS Instances**: Create RDS database instances with various engines
-- **Lambda Functions**: Create Lambda functions with different runtimes
-- **SNS Topics**: Create SNS topics for messaging
-- **Direct Python Execution**: Use `python aws_cli.py` for broader service access
+- **Modern Go Implementation**: Built with aws-sdk-go-v2 for optimal performance
+- **Comprehensive Error Handling**: User-friendly AWS error messages
+- **Professional CLI**: Built with Cobra for excellent user experience
 
 ## Prerequisites
 
-- Python 3.8 or higher
+- Go 1.21 or higher
 - AWS credentials configured (via AWS CLI, environment variables, or IAM roles)
-- Required Python packages (see requirements.txt)
 
 ## Installation
 
-1. Clone this repository:
+### Quick Start
+
+1. Clone and build:
 ```bash
-git clone https://github.com/nataliagranato/aws-resources.git
+git clone https://github.com/Tech-Preta/aws-resources.git
 cd aws-resources
+make build
 ```
 
-2. Install dependencies:
+2. Configure AWS credentials:
 ```bash
-pip install -r requirements.txt
+aws configure
+# OR set environment variables:
+# export AWS_ACCESS_KEY_ID=your_access_key
+# export AWS_SECRET_ACCESS_KEY=your_secret_key
 ```
 
-3. Install the package for modern CLI experience:
+## Usage
+
+### S3 Operations
+
+Create an S3 bucket:
 ```bash
-pip install -e .
+./bin/aws-resources s3 create-bucket --bucket-name my-app-logs-2024 --region us-east-1
 ```
 
-4. Configure AWS credentials (choose one method):
-   - Using AWS CLI: `aws configure`
-   - Using environment variables: `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`
-   - Using IAM roles (if running on EC2)
+### EC2 Operations
+
+Launch EC2 instances:
+```bash
+# Single instance
+./bin/aws-resources ec2 create-instances \
+  --image-id ami-0abcdef1234567890 \
+  --instance-type t2.micro \
+  --key-name my-keypair \
+  --region us-west-2
+
+# Multiple instances with verbose output
+./bin/aws-resources -v ec2 create-instances \
+  --image-id ami-0abcdef1234567890 \
+  --instance-type t3.small \
+  --key-name production-key \
+  --count 3 \
+  --region eu-west-1
+```
+
+### Global Options
+
+- `-v, --verbose`: Enable verbose output with full JSON responses
+- `-r, --region`: Specify AWS region globally
+
+## Development
+
+### Build Commands
+
+```bash
+make build          # Build the application
+make test           # Run tests
+make clean          # Clean build artifacts
+make check          # Run format, vet, and test
+make help           # Show all available commands
+```
+
+## Migration from Python Version
+
+If you were using the previous Python version:
+
+### Command Equivalents
+
+| Python Command | Go Command |
+|----------------|------------|
+| `aws-resources s3 create-bucket --bucket-name mybucket --region us-east-1` | `./bin/aws-resources s3 create-bucket --bucket-name mybucket --region us-east-1` |
+| `aws-resources ec2 create-instances --image-id ami-123 --instance-type t2.micro --key-name mykey --region us-west-2` | `./bin/aws-resources ec2 create-instances --image-id ami-123 --instance-type t2.micro --key-name mykey --region us-west-2` |
+
+### Key Differences
+
+1. **Single Binary**: No need for Python dependencies or virtual environments
+2. **Faster Startup**: Go binary starts instantly vs Python import time
+3. **Better Error Messages**: More detailed AWS error handling
+4. **Enhanced CLI**: Professional command structure with better help and validation
+
+## Architecture
+
+```
+├── cmd/aws-resources/     # Main application entry point
+├── pkg/
+│   ├── cli/              # CLI commands and interface
+│   └── services/         # AWS service implementations
+├── Makefile              # Build and development commands
+├── go.mod               # Go module definition
+└── go.sum              # Go module checksums
+```
+
+## Legacy Python Implementation
+
+The original Python implementation is preserved in this repository:
+- `aws_cli/` - Original Python CLI implementation
+- `aws_ui/` - Flask web interface (deprecated)
+- `tests/` - Python unit tests
+
+These files are kept for reference but are no longer actively maintained.
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the GNU General Public License v3.0. See the [LICENSE](LICENSE) file for details.
+
+---
+
+Feito com ❤️ por [Natália Granato](https://github.com/nataliagranato).
 
 ## Usage
 
