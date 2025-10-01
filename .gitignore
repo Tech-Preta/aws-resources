@@ -1,3 +1,7 @@
+# Go coverage files
+coverage.out
+coverage.html
+
 # Python
 __pycache__/
 *.py[cod]
